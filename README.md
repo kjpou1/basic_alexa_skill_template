@@ -1,10 +1,12 @@
-# BASIC_REST_API_TEMPLATE
+Sure! Here is the modified `README.md` with `MyCustomIntent` instead of `GenericIntent`.
 
-This is a basic Python starting template for a REST API.
+# BASIC_ALEXA_SKILL_TEMPLATE
+
+This is a foundational Python template for developing Alexa skills using Flask-Ask.
 
 ## Table of Contents
 
-- [BASIC\_REST\_API\_TEMPLATE](#basic_rest_api_template)
+- [BASIC\_ALEXA\_SKILL\_TEMPLATE](#basic_alexa_skill_template)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -14,10 +16,10 @@ This is a basic Python starting template for a REST API.
   - [Shell Script](#shell-script)
     - [Shell Script Examples](#shell-script-examples)
     - [Running the Shell Script](#running-the-shell-script)
-  - [API Testing](#api-testing)
-    - [Testing the `/api/salutatio` Endpoint](#testing-the-apisalutatio-endpoint)
-      - [Example Response](#example-response)
+  - [Skill Testing](#skill-testing)
+    - [Testing MyCustomIntent](#testing-mycustomintent)
   - [License](#license)
+    - [Notes:](#notes)
 
 ## Installation
 
@@ -51,14 +53,15 @@ This is a basic Python starting template for a REST API.
 
 ## Usage
 
-To run the library, use the provided `run.py` script with appropriate command-line arguments.
+To run the Alexa skill, use the provided `run.py` script with appropriate command-line arguments.
 
 ### Command Line Arguments
 
 The following command-line arguments can be used:
 
-- `--server` or `-s`: Specify the server host (default: `0.0.0.0`).
-- `--port` or `-p`: Specify the server port (default: `8080`).
+- `--server` or `-s`: Specify the server host (default: `127.0.0.1`).
+- `--port` or `-p`: Specify the server port (default: `5000`).
+- `--intent` or `-i`: Specify the intent name to be handled dynamically (default: `MyCustomIntent`).
 
 ### Examples
 
@@ -68,10 +71,10 @@ To run the program with default settings:
 python run.py
 ```
 
-To run the program with a specified host and port:
+To run the program with a specified host, port, and intent:
 
 ```bash
-python run.py --server 127.0.0.1 --port 5000
+python run.py --server 127.0.0.1 --port 5000 --intent MyCustomIntent
 ```
 
 ## Configuration
@@ -81,8 +84,10 @@ The configuration settings are managed through environment variables and can be 
 Example `.env` file:
 
 ``` 
-SERVER_HOST=0.0.0.0
-SERVER_PORT=8080
+SERVER_HOST=127.0.0.1
+SERVER_PORT=5000
+INTENT=MyCustomIntent
+DEBUG=True
 ```
 
 > [!NOTE]
@@ -115,24 +120,20 @@ To run the script:
 ./run.sh
 ```
 
-## API Testing
+## Skill Testing
 
-### Testing the `/api/salutatio` Endpoint
+### Testing MyCustomIntent
 
-To test the `/api/salutatio` endpoint, you can use the following `curl` command to pass a name parameter:
-
-```sh
-curl -X GET "http://localhost:8080/api/salutatio?name=ego%20draconis"
-```
-
-#### Example Response
-
-```json
-{
-    "greeting": "Salutatio: ego draconis"
-}
-```
+To test the dynamically specified intent, you can use the Alexa Developer Console. 
 
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+### Notes:
+
+1. **Project Name**: Ensure to replace `project_name` with the actual name of your project in the clone command.
+2. **Intent Testing**: The curl command and example response are illustrative. Actual testing may require interaction with the Alexa developer console or an Alexa-enabled device.
+3. **Environment Configuration**: The `.env` file should reflect all environment variables used within the project.

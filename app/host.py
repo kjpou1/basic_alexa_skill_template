@@ -1,12 +1,20 @@
 import asyncio
 import logging
+import os
 
 from flask import Flask
+from flask_ask import Ask
 from werkzeug.serving import run_simple
 
-from app.api.routes import api_bp, print_all_endpoints
 from app.config.config import Config
 from app.models.command_line_args import CommandLineArgs
+from app.skill.intents import api_bp, register_skill_intents
+
+
+class TestingConfig(Config):
+    DATABASE_URI = "sqlite:///:memory:"
+    TESTING = True
+    EXPLAIN_TEMPLATE_LOADING = True
 
 
 class Host:
@@ -32,39 +40,24 @@ class Host:
         self.config = Config()
         self.config.set_server_host(args.server)
         self.config.set_server_port(args.port)
+        self.config.set_intent(args.intent)
 
         self.logger = logging.getLogger(__name__)
-
         # Initialize Flask app
         self.app = Flask(__name__)
-
-        # Register blueprints
+        # # Register blueprints
         self.app.register_blueprint(api_bp)
 
+        register_skill_intents(self.app)
+
     def run(self):
-        """
-        Run the asynchronous run_async method.
-        """
-        return asyncio.run(self.run_async())
-
-    async def run_async(self):
-        """
-        Asynchronous method to perform the main logic: Start Flask server in a separate thread.
-        """
-        self.logger.info("Starting host process.")
-        print_all_endpoints(self.app, self.config)
-
-        loop = asyncio.get_event_loop()
-        future = loop.run_in_executor(
-            None,
-            lambda: run_simple(
-                self.args.server,
-                self.args.port,
-                self.app,
-                use_debugger=self.config.get("DEBUG", False),
-            ),
+        # Method to perform the main logic: Start Flask server
+        run_simple(
+            self.args.server,
+            self.args.port,
+            self.app,
+            use_debugger=self.config.get("DEBUG", False),
         )
-        await future
 
 
 # if __name__ == "__main__":

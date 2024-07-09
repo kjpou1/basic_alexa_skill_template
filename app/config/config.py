@@ -17,6 +17,7 @@ class Config(metaclass=SingletonMeta):
         if not self._is_initialized:
             self._server = None
             self._port = None
+            self._intent = None
 
             # Initialize other configuration settings here
             self.logger = logging.getLogger(__name__)
@@ -47,8 +48,15 @@ class Config(metaclass=SingletonMeta):
             else int(self.get("SERVER_PORT", DEFAULT_SERVER_PORT))
         )
 
+    @property
+    def intent(self):
+        return self._intent if self._intent else self.get("INTENT", "GenericIntent")
+
     def set_server_host(self, host):
         self._server = host
 
     def set_server_port(self, port):
         self._port = port
+
+    def set_intent(self, intent):
+        self._intent = intent

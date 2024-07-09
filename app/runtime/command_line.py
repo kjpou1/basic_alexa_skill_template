@@ -17,7 +17,13 @@ class CommandLine:
         parser.add_argument(
             "--port", "-p", type=int, default=DEFAULT_SERVER_PORT, help="Server port"
         )
+        parser.add_argument(
+            "--intent",
+            type=str,
+            default="MyCustomIntent",
+            help="Name of the custom intent",
+        )
 
         args = parser.parse_args()
 
-        return CommandLineArgs(server=args.server, port=args.port)
+        return CommandLineArgs(server=args.server, port=args.port, intent=args.intent)

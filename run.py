@@ -1,4 +1,4 @@
-import asyncio
+# import asyncio
 import logging
 
 from app import CommandLine
@@ -20,14 +20,22 @@ async def main_async():
 
 
 def main():
-    asyncio.run(main_async())
+    # asyncio.run(main_async())
+    try:
+        args = CommandLine.parse_arguments()
+        # Create an instance of Host with parsed arguments
+        instance = Host(args)
+        # Run the async main function with the parsed arguments
+        instance.run()
+    except ValueError as e:
+        logger.error("Error: %s", e)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Setup logging configuration
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     main()
