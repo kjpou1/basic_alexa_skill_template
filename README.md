@@ -1,8 +1,17 @@
-Sure! Here is the modified `README.md` with `MyCustomIntent` instead of `GenericIntent`.
-
 # BASIC_ALEXA_SKILL_TEMPLATE
 
 This is a foundational Python template for developing Alexa skills using Flask-Ask.
+
+> [!NOTE] 
+> To get this project to work, you need the following:
+> - use Python version 3.9.6
+> - install Flask-Ask from the specific GitHub commit using the following command:
+> 
+> ```bash
+> pip install git+https://github.com/johnwheeler/flask-ask.git@8fa6aa052a8a4b5273cbcceb48e926b41dbe8a32
+> ```
+> 
+> - use Flask version 2.3.0.
 
 ## Table of Contents
 
